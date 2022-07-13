@@ -2,12 +2,13 @@
 using namespace std;
 
 //Problem : Print all subarrays of a given array
-// Brute Force Approach O(N^3)
+// Brute Force Approach O(N^3) (Because of 3 nested loops)
 int largestSubarraySum1(int arr[],int n){
 
 	int largest_sum = 0;
 
-	for(int i=0;i<n;i++){
+	//// THIS LOOP = ORDER OF N^3 (3 nested loops)
+	for(int i=0;i<n;i++){ 
 		for(int j=i; j<n; j++){
 
 			int subarraySum = 0;
@@ -16,33 +17,44 @@ int largestSubarraySum1(int arr[],int n){
 				//cout<<arr[k] <<",";
 				subarraySum += arr[k];
 			}
-			//put a check is subarraySum > largest_sum
+			//put a check if subarraySum > largest_sum
 			largest_sum = max(largest_sum,subarraySum);
 
 		}
 	}
 	return largest_sum;
 }
-// Prefix Sum Approach O(N^2)
+// Prefix Sum Approach O(N^2) -> N + N^2 =~ N^2 (because of two nested loops)
+// Make another array (prefix array) stores the cumulative sum of all the elements up til a specified index
 int largestSubarraySum2(int arr[],int n){
 
 	//Prefix Sums
-	int prefix[100] = {0};
-	prefix[0] = arr[0];
+	int prefix[100] = {0}; 
+	//C++ does not allow variable-length array initialization e.g. int prefix[n] = {0}. Hence, we need to make a static array e.g. making 100 elements.
+	// Initialise the first element so there is no garbage values in the array.
+	prefix[0] = arr[0]; //Set first element of the prefix array to be the input array's first element.
 	
-	for(int i=1;i<n;i++){
+	//// THIS LOOP = ORDER OF N (one loop)
+	for(int i=1;i<n;i++){ //This stores the cumulative sum of all the elements til the ith index.
+		//ith prefix array element = i-1 prefix array element + ith input array element
 		prefix[i] = prefix[i-1] + arr[i];
+		//Imagine if i=1
+		// prefix[1] = prefix[0-1] + arr[1]
+		// prefix[1] = -2 + 3
 	}
 
-	//largest sum login
+	//Largest sum logic
 	int largest_sum = 0;
 
+	//// THIS LOOP = ORDER OF N^2 (two nested loops)
+	// i = starting index, j = ending index.
 	for(int i=0;i<n;i++){
 		for(int j=i; j<n; j++){
+			//If i=0, means you will grab the sum of all the elements that starts from index 0 to the ending index j.
+			// The i>0? conditional statement (similar to if else statement) is added because i cannot be negative.
 			int subarraySum = i>0 ? prefix[j] - prefix[i-1] : prefix[j];
-			//put a check is subarraySum > largest_sum
+			//put a check if subarraySum > largest_sum
 			largest_sum = max(largest_sum,subarraySum);
-
 		}
 	}
 	return largest_sum;
