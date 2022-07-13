@@ -3,13 +3,13 @@
 using namespace std;
 
 // Note that inside the main function, we have the actual array.
-// But if we pass in an array into a function, we only have the address of the array. This is known as pass by reference (which means the array is not passed by value).
+// But if we pass in an array into a function, we pass in the address of the array. This is known as pass by reference (the array is not passed by value).
 
 // Using this as an example: void printArray(int arr[]){...}:
 // If we ""cout << sizeof(arr)"" with the function taking in ""int arr[]"", it will return 8 bytes. Why? 
-// Because in this case, variable arr is a pointer that holds the array address. And a pointer size is 8 bytes.
+// Because in this case, variable arr is actually a pointer that holds the array address. And a pointer size is 8 bytes.
 
-// If you want to make it more explicit, you cna use "int *arr" instead of "int arr[]".
+// If you want to make it more explicit, you can use "int *arr" instead of "int arr[]". Otherwise int arr[] can be used too.
 
 void printArray(int *arr,int n){ 
 	// "int *arr" to be more explicit that the arr address is being passed into the function.
