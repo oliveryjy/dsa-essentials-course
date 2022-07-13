@@ -1,32 +1,33 @@
 #include<iostream>
 using namespace std;
 
-//Problem : Print all subarrays of a given array
-void printSubarrays(int arr[],int n){
+//Problem : Print all pairs of elements (two nested loops)
+void printAllPairs(int arr[],int n){
+	for(int i=0; i<n; i++){
+		int x = arr[i]; // First number
 
-	for(int i=0;i<n;i++){
-		for(int j=i; j<n;j++){
-			for(int k=i;k<=j;k++){
-				cout<<arr[k] <<",";
-			}
-			cout <<endl;
+		for(int j=i+1; j<n; j++){ // Start from i+1 (one number after)
+			int y = arr[j];
+
+			cout << x << "," << y << endl;
 		}
-
+		cout << endl;
 	}
-
 }
-
-// Print the sum of each subarray & find out the largest sum
 
 
 int main(){
 	//Array Containing 
-	int arr[] = {-2,3,4,5,-12,6,2,3};
+	int arr[] = {10,20,30,40,50,60};
 	int n = sizeof(arr)/sizeof(int);
 
-	printSubarrays(arr,n);
+	//Print all elements
+	for(int x : arr){ // This loop takes the elements directly in the array.
+		cout << x << endl;
+	}
+	cout << endl;
 
-
+	printAllPairs(arr, n);
 
 	return 0;
 }
