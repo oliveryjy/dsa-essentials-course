@@ -12,7 +12,7 @@ using namespace std;
 // If you want to make it more explicit, you cna use "int *arr" instead of "int arr[]".
 
 void printArray(int *arr,int n){ 
-	// "int *arr" to be more explicit that an address is being passed
+	// "int *arr" to be more explicit that the arr address is being passed into the function.
 	// "int n" to get the correct number of elements as calculated in main.
 
 	cout <<"In Function "<<sizeof(arr) <<endl;
@@ -46,3 +46,5 @@ int main(){
 	return 0;
 }
 
+// Both arrays in the functions printArray and main share the same array memory
+// Recall that the address of the array is passed into the function printArray. That's why any editing done to the array will affect the original array.
